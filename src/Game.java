@@ -8,16 +8,23 @@ public class Game {
             {'7','8','9'}
     };
     private char winner;
+    int mode;
     Map<Character, String> players = new HashMap<>(2) ;
 
     public void getData(){
-        String player1,player2;
-
+        String player1,player2="computer";
         Scanner s = new Scanner(System.in);
+
+        System.out.println("Please Select the game mode (0 -> player vs computer / 1-> player vs player) : ");
+         mode = s.nextInt();
+        s.nextLine();
         System.out.println("Please Enter the first player's name (plays as (x) ): ");
         player1 =s.nextLine();
+
+        if(mode==1){
         System.out.println("Please Enter the second player's name (plays as (o) ): ");
         player2=s.nextLine();
+        }
 
         players.put('x',player1);
         players.put('o',player2);
@@ -25,20 +32,25 @@ public class Game {
 
     public void play(){
         Scanner s = new Scanner(System.in);
-
+        ArrayList<Integer> available =new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         char player_turn = 'x';
         int turns = 0  , col , row, chosen_cell;
         while (turns<9){
             print();
 
                 System.out.println(players.get(player_turn)+"'s turn ("+player_turn+") :  ");
-                chosen_cell=s.nextInt();
+                if(mode==0 && player_turn=='o')
+                    chosen_cell= Computer_play(available);
+                else
+                    chosen_cell=s.nextInt();
+
                 row = (chosen_cell-1)/3;
                 col = (chosen_cell-1)%3;
                
                 if(validMove(row,col)){
                     Board[row][col] = player_turn;
                     turns++;
+                    available.remove(Integer.valueOf(chosen_cell));
                     player_turn = (player_turn == 'x')? 'o' : 'x';
 
                     if (CheckWinner(row,col)){
@@ -52,6 +64,14 @@ public class Game {
         }
         System.out.println("Its a tie");
     }
+
+    private int Computer_play(ArrayList<Integer> available) {
+        int max = available.size();
+        Random r = new Random();
+        int random_index = r.nextInt(max);
+        return available.get(random_index);
+    }
+
 
     private boolean validMove(int r , int c) {
 
@@ -110,7 +130,7 @@ public class Game {
         if (winner != '\0'){
             print();
             System.out.println("-->Game Over !!");
-            System.out.println("--> Winner is "+ winner);
+            System.out.println("--> Winner is "+ players.get(winner));
             return true;
         }
         else{
