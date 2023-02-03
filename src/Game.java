@@ -8,41 +8,39 @@ public class Game {
             {'7','8','9'}
     };
     private char winner;
-
+    Map<Character, String> players = new HashMap<>(2) ;
 
     public void getData(){
+        String player1,player2;
+
         Scanner s = new Scanner(System.in);
-        int turns = 0 , player_turn=0 , col , row,chosen_cell;
+        System.out.println("Please Enter the first player's name (plays as (x) ): ");
+        player1 =s.nextLine();
+        System.out.println("Please Enter the second player's name (plays as (o) ): ");
+        player2=s.nextLine();
+
+        players.put('x',player1);
+        players.put('o',player2);
+    }
+
+    public void play(){
+        Scanner s = new Scanner(System.in);
+
+        char player_turn = 'x';
+        int turns = 0  , col , row, chosen_cell;
         while (turns<9){
             print();
-            if(player_turn == 0){
-                System.out.println("Player1's turn (x) :  ");
+
+                System.out.println(players.get(player_turn)+"'s turn ("+player_turn+") :  ");
                 chosen_cell=s.nextInt();
                 row = (chosen_cell-1)/3;
                 col = (chosen_cell-1)%3;
                
                 if(validMove(row,col)){
-                    Board[row][col] = 'x';
+                    Board[row][col] = player_turn;
                     turns++;
-                    player_turn = 1;
-                    if (CheckWinner(row,col)){
-                        System.exit(0);
-                    }
-                }
-                else{
-                    System.out.println("Invalid input , please try again : ");
-                }
-            }
-            else {
-                System.out.println("Player2's turn (o) :  ");
-                chosen_cell=s.nextInt();
-                row = (chosen_cell-1)/3;
-                col = (chosen_cell-1)%3;
+                    player_turn = (player_turn == 'x')? 'o' : 'x';
 
-                if(validMove(row,col)){
-                    Board[row][col] = 'o';
-                    turns++;
-                    player_turn = 0;
                     if (CheckWinner(row,col)){
                         System.exit(0);
                     }
@@ -50,7 +48,7 @@ public class Game {
                 else{
                     System.out.println("Invalid input , please try again : ");
                 }
-            }
+
         }
         System.out.println("Its a tie");
     }
