@@ -12,45 +12,43 @@ public class Game {
 
     public void getData(){
         Scanner s = new Scanner(System.in);
-        int turns = 0 , turn=0 , col , row,a;
+        int turns = 0 , player_turn=0 , col , row,chosen_cell;
         while (turns<9){
             print();
-            if(turn == 0){
+            if(player_turn == 0){
                 System.out.println("Player1's turn (x) :  ");
-                a=s.nextInt();
-                row = (a-1)/3;
-                col = (a-1)%3;
+                chosen_cell=s.nextInt();
+                row = (chosen_cell-1)/3;
+                col = (chosen_cell-1)%3;
                
                 if(validMove(row,col)){
                     Board[row][col] = 'x';
                     turns++;
-                    turn = 1;
+                    player_turn = 1;
                     if (CheckWinner(row,col)){
                         System.exit(0);
                     }
                 }
                 else{
                     System.out.println("Invalid input , please try again : ");
-                    getData();
                 }
             }
             else {
                 System.out.println("Player2's turn (o) :  ");
-                a=s.nextInt();
-                row = (a-1)/3;
-                col = (a-1)%3;
+                chosen_cell=s.nextInt();
+                row = (chosen_cell-1)/3;
+                col = (chosen_cell-1)%3;
 
                 if(validMove(row,col)){
                     Board[row][col] = 'o';
                     turns++;
-                    turn = 0;
+                    player_turn = 0;
                     if (CheckWinner(row,col)){
                         System.exit(0);
                     }
                 }
                 else{
                     System.out.println("Invalid input , please try again : ");
-                    getData();
                 }
             }
         }
@@ -59,7 +57,7 @@ public class Game {
 
     private boolean validMove(int r , int c) {
 
-        return (Board[r][c] != 'x' && Board[r][c] != 'o') ;
+        return (r>=0 && r<=2 && c>=0 && c<=2 && Board[r][c] != 'x' && Board[r][c] != 'o') ;
     }
 
     public void print(){
