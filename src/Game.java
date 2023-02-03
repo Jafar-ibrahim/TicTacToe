@@ -2,9 +2,6 @@ import java.util.*;
 
 public class Game {
 
-    ArrayList<ArrayList<Character>> Board2 = new ArrayList<>();
-
-
     char[][] Board = {
             {'1','2','3'},
             {'4','5','6'},
@@ -12,11 +9,6 @@ public class Game {
     };
     private char winner;
 
-    public Game(){
-        Board2.add( new ArrayList<>(Arrays.asList('1','2','3')));
-        Board2.add( new ArrayList<>(Arrays.asList('4','5','6')));
-        Board2.add( new ArrayList<>(Arrays.asList('7','8','9')));
-    }
 
     public void getData(){
         Scanner s = new Scanner(System.in);
