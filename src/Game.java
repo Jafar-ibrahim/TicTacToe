@@ -16,7 +16,12 @@ public class Game {
         Scanner s = new Scanner(System.in);
 
         System.out.println("Please Select the game mode (0 -> player vs computer / 1 -> player vs player) : ");
-        mode = read_integer_input();
+       do {
+            mode = read_integer_input();
+            if(!(mode==0 || mode==1))
+                System.out.println("Invalid input ,Please enter only either 0 or 1 :");
+        } while(!(mode==0 || mode==1));
+
         System.out.println("Please Enter the first player's name (plays as (x) ): ");
         player1 =s.nextLine();
 
@@ -112,7 +117,7 @@ public class Game {
         }
     }
 
-    private   boolean CheckWinner( int row , int col){
+    private boolean CheckWinner( int row , int col){
         // array to check 4 possible win lines (vertical/horizontal/ 2 diagonal)
         int[] hits_count = new int[4];
         char target = Board[row][col];
