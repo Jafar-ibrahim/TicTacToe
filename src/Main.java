@@ -1,6 +1,6 @@
 import java.lang.*;
 
-public class TicTacToe {
+public class Main {
     public static void main(String[] args){
         Game game = new Game();
         InputReader reader = new InputReader(game);
