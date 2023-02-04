@@ -2,9 +2,14 @@ import java.lang.*;
 
 public class TicTacToe {
     public static void main(String[] args){
-        Game t1 = new Game();
-        t1.getData();
-        t1.play();
+        Game game = new Game();
+        InputReader reader = new InputReader(game);
+        BoardPrinter printer =new BoardPrinter();
+        Checker checker = new Checker(game,printer);
+        GameDriver driver = new GameDriver(game,printer,reader,checker);
+
+        reader.getData();
+        driver.play();
 
     }
 
