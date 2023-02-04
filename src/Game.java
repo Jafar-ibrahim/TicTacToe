@@ -13,10 +13,20 @@ public class Game {
 
     public void getData(){
         String player1,player2="computer";
+        boolean validInput=false;
         Scanner s = new Scanner(System.in);
 
-        System.out.println("Please Select the game mode (0 -> player vs computer / 1-> player vs player) : ");
-         mode = s.nextInt();
+        System.out.println("Please Select the game mode (0 -> player vs computer / 1 -> player vs player) : ");
+        while (!validInput){
+        try {
+            mode = s.nextInt();
+            validInput=true;
+        }catch (InputMismatchException e){
+            System.out.println("Invalid Input , Please enter only 0 or 1 .");
+            s.nextLine();
+        }
+        }
+
         s.nextLine();
         System.out.println("Please Enter the first player's name (plays as (x) ): ");
         player1 =s.nextLine();
@@ -34,15 +44,24 @@ public class Game {
         Scanner s = new Scanner(System.in);
         ArrayList<Integer> available =new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
         char player_turn = 'x';
-        int turns = 0  , col , row, chosen_cell;
-        while (turns<9){
-            print();
+        int turns = 0  , col , row, chosen_cell = 0;
 
+        while (turns<9){
+            boolean validInput = false;
+                print();
                 System.out.println(players.get(player_turn)+"'s turn ("+player_turn+") :  ");
                 if(mode==0 && player_turn=='o')
                     chosen_cell= Computer_play(available);
-                else
-                    chosen_cell=s.nextInt();
+                else while (!validInput){
+                    try {
+                        chosen_cell = s.nextInt();
+                        validInput=true;
+                    }catch (InputMismatchException e){
+                        System.out.println("Invalid Input , Please enter only an integer from 1 to 9 .");
+                        s.nextLine();
+                    }
+                }
+
 
                 row = (chosen_cell-1)/3;
                 col = (chosen_cell-1)%3;
@@ -62,7 +81,7 @@ public class Game {
                 }
 
         }
-        System.out.println("Its a tie");
+        System.out.println("No winner , It's a tie !");
     }
 
     private int Computer_play(ArrayList<Integer> available) {
@@ -130,7 +149,7 @@ public class Game {
         if (winner != '\0'){
             print();
             System.out.println("-->Game Over !!");
-            System.out.println("--> Winner is "+ players.get(winner));
+            System.out.println("--> The Winner is "+ players.get(winner));
             return true;
         }
         else{
