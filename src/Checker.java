@@ -8,6 +8,8 @@ public class Checker {
         this.printer = printer;
     }
 
+    // a method to check the validity of the move ( whether its in the
+    // range of 0-2 and if the cell selected is empty)
     public boolean validMove(int r , int c) {
         return (r>=0 && r<=2 && c>=0 && c<=2 && game.Board[r][c] != 'x' && game.Board[r][c] != 'o') ;
     }

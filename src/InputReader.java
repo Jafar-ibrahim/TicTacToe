@@ -48,6 +48,7 @@ public class InputReader {
         return input;
     }
 
+    // a method that picks a randomized number from the available cells/numbers on the board
     public int Computer_play(ArrayList<Integer> available) {
         int max = available.size();
         Random r = new Random();
